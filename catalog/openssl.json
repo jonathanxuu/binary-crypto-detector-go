@@ -1,0 +1,21 @@
+{
+  "library": "OpenSSL",
+  "source": "OpenSSL EVP/provider API",
+  "algorithms": [
+    {"id":"openssl.sha1","rule":"OpenSSL_SHA1","algorithm":"SHA-1","purpose":"legacy digest","imports":["SHA1"],"evidence":["SHA1"],"yara_strings":["SHA1"]},
+    {"id":"openssl.sha256","rule":"OpenSSL_SHA256","algorithm":"SHA-256","purpose":"digest","imports":["SHA256"],"evidence":["EVP_sha256","SHA256_Init","SHA256_Update"],"yara_strings":["EVP_sha256","SHA256_Init","SHA256_Update"]},
+    {"id":"openssl.sha512","rule":"OpenSSL_SHA512","algorithm":"SHA-512","purpose":"digest","imports":["EVP_sha512"],"evidence":["EVP_sha512"],"yara_strings":["EVP_sha512"]},
+    {"id":"openssl.aes-256-gcm","rule":"OpenSSL_AES_256_GCM","algorithm":"AES-256-GCM","purpose":"AEAD encryption","imports":["EVP_aes_256_gcm"],"evidence":["EVP_aes_256_gcm","AES-256-GCM"],"yara_strings":["EVP_aes_256_gcm","AES-256-GCM"]},
+    {"id":"openssl.aes-128-cbc","rule":"OpenSSL_AES_128_CBC","algorithm":"AES-128-CBC","purpose":"encryption","imports":["EVP_aes_128_cbc"],"evidence":["EVP_aes_128_cbc"],"yara_strings":["EVP_aes_128_cbc"]},
+    {"id":"openssl.chacha20-poly1305","rule":"OpenSSL_ChaCha20_Poly1305","algorithm":"ChaCha20-Poly1305","purpose":"AEAD encryption","imports":["EVP_chacha20_poly1305"],"evidence":["EVP_chacha20_poly1305"],"yara_strings":["EVP_chacha20_poly1305"]},
+    {"id":"openssl.blake2b-512","rule":"OpenSSL_BLAKE2B_512","algorithm":"BLAKE2b-512","purpose":"digest","imports":["EVP_blake2b512"],"evidence":["EVP_blake2b512"],"yara_strings":["EVP_blake2b512"]},
+    {"id":"openssl.hmac-sha512","rule":"OpenSSL_HMAC_SHA512","algorithm":"HMAC-SHA512","purpose":"message authentication","required_evidence":2,"imports":["HMAC","EVP_sha512"],"evidence":["HMAC-SHA512","HMAC","EVP_sha512"],"yara_strings":["HMAC-SHA512"]},
+    {"id":"openssl.rsa","rule":"OpenSSL_RSA","algorithm":"RSA","purpose":"public-key cryptography","imports":["EVP_PKEY_CTX_set_rsa_padding"],"evidence":["RSA_sign","RSA_verify","EVP_PKEY_CTX_set_rsa_padding"],"yara_strings":["RSA_sign","RSA_verify"]},
+    {"id":"openssl.rsa-pss-sha256","rule":"OpenSSL_RSA_PSS_SHA256","algorithm":"RSA-PSS-SHA256","purpose":"signature","imports":[],"evidence":["RSA-PSS-SHA256"],"yara_strings":["RSA-PSS-SHA256"]},
+    {"id":"openssl.rsa-oaep-sha256","rule":"OpenSSL_RSA_OAEP_SHA256","algorithm":"RSA-OAEP-SHA256","purpose":"key encapsulation","imports":[],"evidence":["RSA-OAEP-SHA256"],"yara_strings":["RSA-OAEP-SHA256"]},
+    {"id":"openssl.ecdsa","rule":"OpenSSL_ECDSA","algorithm":"ECDSA","purpose":"signature","imports":["EVP_PKEY_CTX_set_ec_paramgen_curve_nid"],"evidence":["ECDSA_sign","ECDSA_verify","EVP_PKEY_CTX_set_ec_paramgen_curve_nid"],"yara_strings":["ECDSA_sign","ECDSA_verify"]},
+    {"id":"openssl.ecdsa-p256","rule":"OpenSSL_ECDSA_P256","algorithm":"ECDSA P-256","purpose":"signature","imports":[],"evidence":["ECDSA P-256"],"yara_strings":["ECDSA P-256"]},
+    {"id":"openssl.ed25519","rule":"OpenSSL_Ed25519","algorithm":"Ed25519","purpose":"signature","imports":[],"evidence":["EVP_PKEY_ED25519","Ed25519"],"yara_strings":["EVP_PKEY_ED25519","Ed25519"]},
+    {"id":"openssl.x25519","rule":"OpenSSL_X25519","algorithm":"X25519","purpose":"key agreement","imports":[],"evidence":["X25519 key agreement"],"yara_strings":["X25519 key agreement"]}
+  ]
+}

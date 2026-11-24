@@ -1,0 +1,7 @@
+{
+  "library": "libsodium",
+  "source": "libsodium public API",
+  "algorithms": [
+    {"id":"libsodium.x25519","rule":"Libsodium_X25519","algorithm":"X25519","purpose":"key agreement","imports":["crypto_scalarmult_curve25519"],"evidence":["crypto_scalarmult_curve25519"],"yara_strings":["crypto_scalarmult_curve25519"]}
+  ]
+}

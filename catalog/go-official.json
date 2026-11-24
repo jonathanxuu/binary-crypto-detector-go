@@ -1,0 +1,294 @@
+{
+  "library": "Go",
+  "source": "Go toolchain and installed modules",
+  "algorithms": [
+    {
+      "id": "go.crypto.aes",
+      "rule": "Go_crypto.aes",
+      "algorithm": "AES",
+      "purpose": "encryption",
+      "imports": [],
+      "symbols": [
+        "crypto/aes",
+        "aes",
+        "crypto/internal/fips140/aes"
+      ],
+      "evidence": [
+        "crypto/aes",
+        "aes",
+        "crypto/internal/fips140/aes"
+      ],
+      "yara_strings": [],
+      "library": "Go standard library",
+      "source": "/opt/homebrew/Cellar/go/1.26.4/libexec/src/crypto"
+    },
+    {
+      "id": "go.crypto.ecdh",
+      "rule": "Go_crypto.ecdh",
+      "algorithm": "X25519",
+      "purpose": "key agreement",
+      "imports": [],
+      "symbols": [
+        "crypto/ecdh",
+        "ecdh",
+        "crypto/internal/fips140/ecdh"
+      ],
+      "evidence": [
+        "crypto/ecdh",
+        "ecdh",
+        "crypto/internal/fips140/ecdh"
+      ],
+      "yara_strings": [],
+      "library": "Go standard library",
+      "source": "/opt/homebrew/Cellar/go/1.26.4/libexec/src/crypto"
+    },
+    {
+      "id": "go.crypto.ecdsa",
+      "rule": "Go_crypto.ecdsa",
+      "algorithm": "ECDSA",
+      "purpose": "signature",
+      "imports": [],
+      "symbols": [
+        "crypto/ecdsa",
+        "ecdsa",
+        "crypto/internal/fips140/ecdsa"
+      ],
+      "evidence": [
+        "crypto/ecdsa",
+        "ecdsa",
+        "crypto/internal/fips140/ecdsa"
+      ],
+      "yara_strings": [],
+      "library": "Go standard library",
+      "source": "/opt/homebrew/Cellar/go/1.26.4/libexec/src/crypto"
+    },
+    {
+      "id": "go.crypto.hmac",
+      "rule": "Go_crypto.hmac",
+      "algorithm": "HMAC",
+      "purpose": "message authentication",
+      "imports": [],
+      "symbols": [
+        "crypto/hmac",
+        "hmac",
+        "crypto/internal/fips140/hmac"
+      ],
+      "evidence": [
+        "crypto/hmac",
+        "hmac",
+        "crypto/internal/fips140/hmac"
+      ],
+      "yara_strings": [],
+      "library": "Go standard library",
+      "source": "/opt/homebrew/Cellar/go/1.26.4/libexec/src/crypto"
+    },
+    {
+      "id": "go.crypto.mlkem",
+      "rule": "Go_crypto.mlkem",
+      "algorithm": "ML-KEM",
+      "purpose": "key encapsulation",
+      "imports": [],
+      "symbols": [
+        "crypto/mlkem",
+        "mlkem",
+        "crypto/internal/fips140/mlkem"
+      ],
+      "evidence": [
+        "crypto/mlkem",
+        "mlkem",
+        "crypto/internal/fips140/mlkem"
+      ],
+      "yara_strings": [],
+      "library": "Go standard library",
+      "source": "/opt/homebrew/Cellar/go/1.26.4/libexec/src/crypto"
+    },
+    {
+      "id": "go.crypto.rsa",
+      "rule": "Go_crypto.rsa",
+      "algorithm": "RSA",
+      "purpose": "public-key cryptography",
+      "imports": [],
+      "symbols": [
+        "crypto/rsa",
+        "rsa",
+        "crypto/internal/fips140/rsa"
+      ],
+      "evidence": [
+        "crypto/rsa",
+        "rsa",
+        "crypto/internal/fips140/rsa"
+      ],
+      "yara_strings": [],
+      "library": "Go standard library",
+      "source": "/opt/homebrew/Cellar/go/1.26.4/libexec/src/crypto"
+    },
+    {
+      "id": "go.crypto.sha1",
+      "rule": "Go_crypto.sha1",
+      "algorithm": "SHA-1",
+      "purpose": "digest",
+      "imports": [],
+      "symbols": [
+        "crypto/sha1",
+        "sha1",
+        "crypto/internal/fips140/sha1"
+      ],
+      "evidence": [
+        "crypto/sha1",
+        "sha1",
+        "crypto/internal/fips140/sha1"
+      ],
+      "yara_strings": [],
+      "library": "Go standard library",
+      "source": "/opt/homebrew/Cellar/go/1.26.4/libexec/src/crypto"
+    },
+    {
+      "id": "go.crypto.sha256",
+      "rule": "Go_crypto.sha256",
+      "algorithm": "SHA-256",
+      "purpose": "digest",
+      "imports": [],
+      "symbols": [
+        "crypto/sha256",
+        "sha256",
+        "crypto/internal/fips140/sha256"
+      ],
+      "evidence": [
+        "crypto/sha256",
+        "sha256",
+        "crypto/internal/fips140/sha256"
+      ],
+      "yara_strings": [],
+      "library": "Go standard library",
+      "source": "/opt/homebrew/Cellar/go/1.26.4/libexec/src/crypto"
+    },
+    {
+      "id": "go.crypto.sha512",
+      "rule": "Go_crypto.sha512",
+      "algorithm": "SHA-512",
+      "purpose": "digest",
+      "imports": [],
+      "symbols": [
+        "crypto/sha512",
+        "sha512",
+        "crypto/internal/fips140/sha512"
+      ],
+      "evidence": [
+        "crypto/sha512",
+        "sha512",
+        "crypto/internal/fips140/sha512"
+      ],
+      "yara_strings": [],
+      "library": "Go standard library",
+      "source": "/opt/homebrew/Cellar/go/1.26.4/libexec/src/crypto"
+    },
+    {
+      "id": "go.golang.org.x.crypto.blake2b",
+      "rule": "Go_golang.org.x.crypto.blake2b",
+      "algorithm": "BLAKE2b-512",
+      "purpose": "digest",
+      "imports": [],
+      "symbols": [
+        "golang.org/x/crypto/blake2b",
+        "blake2b"
+      ],
+      "evidence": [
+        "golang.org/x/crypto/blake2b",
+        "blake2b"
+      ],
+      "yara_strings": [],
+      "library": "golang.org/x/crypto",
+      "source": "/Users/xyz/go/pkg/mod/golang.org/x/crypto@v0.17.0"
+    },
+    {
+      "id": "go.golang.org.x.crypto.chacha20poly1305",
+      "rule": "Go_golang.org.x.crypto.chacha20poly1305",
+      "algorithm": "ChaCha20-Poly1305",
+      "purpose": "AEAD encryption",
+      "imports": [],
+      "symbols": [
+        "golang.org/x/crypto/chacha20poly1305",
+        "chacha20poly1305"
+      ],
+      "evidence": [
+        "golang.org/x/crypto/chacha20poly1305",
+        "chacha20poly1305"
+      ],
+      "yara_strings": [],
+      "library": "golang.org/x/crypto",
+      "source": "/Users/xyz/go/pkg/mod/golang.org/x/crypto@v0.17.0"
+    },
+    {
+      "id": "go.golang.org.x.crypto.blake2b",
+      "rule": "Go_golang.org.x.crypto.blake2b",
+      "algorithm": "BLAKE2b-512",
+      "purpose": "digest",
+      "imports": [],
+      "symbols": [
+        "golang.org/x/crypto/blake2b",
+        "blake2b"
+      ],
+      "evidence": [
+        "golang.org/x/crypto/blake2b",
+        "blake2b"
+      ],
+      "yara_strings": [],
+      "library": "golang.org/x/crypto",
+      "source": "/Users/xyz/go/pkg/mod/golang.org/x/crypto@v0.21.0"
+    },
+    {
+      "id": "go.golang.org.x.crypto.chacha20poly1305",
+      "rule": "Go_golang.org.x.crypto.chacha20poly1305",
+      "algorithm": "ChaCha20-Poly1305",
+      "purpose": "AEAD encryption",
+      "imports": [],
+      "symbols": [
+        "golang.org/x/crypto/chacha20poly1305",
+        "chacha20poly1305"
+      ],
+      "evidence": [
+        "golang.org/x/crypto/chacha20poly1305",
+        "chacha20poly1305"
+      ],
+      "yara_strings": [],
+      "library": "golang.org/x/crypto",
+      "source": "/Users/xyz/go/pkg/mod/golang.org/x/crypto@v0.21.0"
+    },
+    {
+      "id": "go.golang.org.x.crypto.blake2b",
+      "rule": "Go_golang.org.x.crypto.blake2b",
+      "algorithm": "BLAKE2b-512",
+      "purpose": "digest",
+      "imports": [],
+      "symbols": [
+        "golang.org/x/crypto/blake2b",
+        "blake2b"
+      ],
+      "evidence": [
+        "golang.org/x/crypto/blake2b",
+        "blake2b"
+      ],
+      "yara_strings": [],
+      "library": "golang.org/x/crypto",
+      "source": "/Users/xyz/go/pkg/mod/golang.org/x/crypto@v0.31.0"
+    },
+    {
+      "id": "go.golang.org.x.crypto.chacha20poly1305",
+      "rule": "Go_golang.org.x.crypto.chacha20poly1305",
+      "algorithm": "ChaCha20-Poly1305",
+      "purpose": "AEAD encryption",
+      "imports": [],
+      "symbols": [
+        "golang.org/x/crypto/chacha20poly1305",
+        "chacha20poly1305"
+      ],
+      "evidence": [
+        "golang.org/x/crypto/chacha20poly1305",
+        "chacha20poly1305"
+      ],
+      "yara_strings": [],
+      "library": "golang.org/x/crypto",
+      "source": "/Users/xyz/go/pkg/mod/golang.org/x/crypto@v0.31.0"
+    }
+  ]
+}
