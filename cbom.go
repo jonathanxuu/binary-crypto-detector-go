@@ -59,7 +59,8 @@ func buildCBOM(findings []Finding, unknownImports, hints, symbols []string, know
 			confirmedAlgorithms[asset.Algorithm] = true
 		}
 	}
-	assets = refineAssets(assets, symbols)
+	assets = refineAssets(assets, symbols, unknownImports)
+	assets = consolidateAssets(assets)
 	confirmedAlgorithms = make(map[string]bool)
 	for _, asset := range assets {
 		confirmedAlgorithms[asset.Algorithm] = true
@@ -98,7 +99,7 @@ func buildCBOM(findings []Finding, unknownImports, hints, symbols []string, know
 
 // refineAssets combines evidence that is only meaningful together and removes
 // implementation/platform markers that are not algorithms themselves.
-func refineAssets(assets []CBOMAsset, symbols []string) []CBOMAsset {
+func refineAssets(assets []CBOMAsset, symbols, imports []string) []CBOMAsset {
 	has := func(algorithm string) bool {
 		for _, asset := range assets {
 			if asset.Algorithm == algorithm {
@@ -111,6 +112,25 @@ func refineAssets(assets []CBOMAsset, symbols []string) []CBOMAsset {
 		marker = strings.ToUpper(marker)
 		for _, symbol := range symbols {
 			if strings.Contains(strings.ToUpper(symbol), marker) {
+				return true
+			}
+		}
+		return false
+	}
+	hasEvidence := func(marker string) bool {
+		marker = strings.ToUpper(marker)
+		for _, asset := range assets {
+			if strings.Contains(strings.ToUpper(asset.API), marker) {
+				return true
+			}
+			for _, evidence := range asset.Evidence {
+				if strings.Contains(strings.ToUpper(evidence.Value), marker) {
+					return true
+				}
+			}
+		}
+		for _, imported := range imports {
+			if strings.Contains(strings.ToUpper(imported), marker) {
 				return true
 			}
 		}
@@ -130,13 +150,57 @@ func refineAssets(assets []CBOMAsset, symbols []string) []CBOMAsset {
 			asset.Algorithm = "HMAC-SHA512"
 			asset.Purpose = "message authentication"
 		}
-		if asset.Algorithm == "RSA" && has("SHA-256") && hasSymbol("SignPSS") {
+		if asset.Algorithm == "RSA" && has("SHA-256") && (hasSymbol("SignPSS") || hasEvidence("PKEY_CTX_SET_RSA_PADDING") || hasEvidence("RSA-PSS")) {
 			asset.Algorithm = "RSA-PSS-SHA256"
+			asset.Purpose = "signature"
+		}
+		if asset.Algorithm == "ECDSA" && (hasEvidence("P256") || hasEvidence("PRIME256V1")) {
+			asset.Algorithm = "ECDSA P-256"
 			asset.Purpose = "signature"
 		}
 		refined = append(refined, asset)
 	}
 	return refined
+}
+
+func consolidateAssets(assets []CBOMAsset) []CBOMAsset {
+	hasSpecific := make(map[string]bool)
+	for _, asset := range assets {
+		switch asset.Algorithm {
+		case "AES-128-CBC", "AES-256-CBC", "AES-256-GCM", "ECDSA P-256", "RSA-PSS-SHA256":
+			hasSpecific[asset.Algorithm] = true
+		}
+	}
+	byAlgorithm := make(map[string]int)
+	result := make([]CBOMAsset, 0, len(assets))
+	for _, asset := range assets {
+		if asset.Algorithm == "AES-CBC" && (hasSpecific["AES-128-CBC"] || hasSpecific["AES-256-CBC"]) {
+			continue
+		}
+		if asset.Algorithm == "ECDSA" && hasSpecific["ECDSA P-256"] {
+			continue
+		}
+		if asset.Algorithm == "RSA" && hasSpecific["RSA-PSS-SHA256"] {
+			continue
+		}
+		if index, ok := byAlgorithm[asset.Algorithm]; ok {
+			result[index].Evidence = appendUniqueEvidenceList(result[index].Evidence, asset.Evidence)
+			if result[index].Confidence != "high" && asset.Confidence == "high" {
+				result[index].Confidence = "high"
+			}
+			continue
+		}
+		byAlgorithm[asset.Algorithm] = len(result)
+		result = append(result, asset)
+	}
+	return result
+}
+
+func appendUniqueEvidenceList(existing []Evidence, additions []Evidence) []Evidence {
+	for _, addition := range additions {
+		existing = appendUniqueEvidence(existing, addition)
+	}
+	return existing
 }
 
 type symbolFinding struct {

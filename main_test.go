@@ -55,6 +55,30 @@ func TestBuildCBOMRecordsMappingSource(t *testing.T) {
 	}
 }
 
+func TestRefineAssetsCombinesAlgorithmEvidence(t *testing.T) {
+	assets := []CBOMAsset{
+		{Algorithm: "AES-128-CBC", Confidence: "high"},
+		{Algorithm: "AES-CBC", Confidence: "medium"},
+		{Algorithm: "RSA", Confidence: "medium", API: "EVP_PKEY_CTX_set_rsa_padding"},
+		{Algorithm: "SHA-256", Confidence: "high"},
+		{Algorithm: "HMAC", Confidence: "medium"},
+		{Algorithm: "SHA-512", Confidence: "high"},
+	}
+	refined := consolidateAssets(refineAssets(assets, []string{"crypto/internal/fips140/rsa.SignPSS"}, []string{"EVP_PKEY_CTX_set_rsa_padding"}))
+	algorithms := make(map[string]bool)
+	for _, asset := range refined {
+		algorithms[asset.Algorithm] = true
+	}
+	for _, expected := range []string{"AES-128-CBC", "RSA-PSS-SHA256", "HMAC-SHA512"} {
+		if !algorithms[expected] {
+			t.Fatalf("expected refined algorithm %q in %#v", expected, algorithms)
+		}
+	}
+	if algorithms["AES-CBC"] || algorithms["RSA"] || algorithms["HMAC"] {
+		t.Fatalf("generic algorithms should be consolidated: %#v", algorithms)
+	}
+}
+
 func TestResolveResourcePathKeepsExistingPath(t *testing.T) {
 	dir := t.TempDir()
 	resource := filepath.Join(dir, "resource.json")
